@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext, useState, useEffect } from "react";
 
-function App() {
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import Routes from "./routes";
+import { blue, indigo } from "@material-ui/core/colors";
+import RegistrationForm from "./Registration";
+
+export const appContext = createContext();
+
+const theme = createMuiTheme({
+  palette: {
+    secondary: {
+      main: blue[900],
+    },
+    primary: {
+      main: indigo[700],
+    },
+  },
+  typography: {
+    fontFamily: ['"Roboto"', "sans-serif"].join(","),
+  },
+});
+
+const App = () => {
+  const [requestsResponses, setRequestsResponses] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div style={{ background: "#f6f7fb" }}>
+      <ThemeProvider theme={theme}>
+        <RegistrationForm></RegistrationForm>
+        <appContext.Provider
+          value={{
+            requestsResponses,
+            setRequestsResponses,
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          {/* <Routes /> */}
+        </appContext.Provider>
+      </ThemeProvider>
     </div>
   );
-}
+};
 
 export default App;

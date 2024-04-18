@@ -2,6 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const taskRoutes = require("./routes/taskRoutes");
+const FormRoutes = require("./routess");
 const app = express();
 const PORT = 3001;
 
@@ -26,7 +27,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/tasks", taskRoutes);
-
+app.use("/api/tasks", FormRoutes);
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
