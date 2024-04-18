@@ -1,6 +1,6 @@
+// src/components/LoginForm.js
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
 import {
   TextField,
   Button,
@@ -9,6 +9,7 @@ import {
   Grid,
 } from "@material-ui/core";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -23,11 +24,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RegistrationForm = () => {
+const LoginForm = () => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
   });
@@ -43,10 +42,10 @@ const RegistrationForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/api/register", formData);
-      console.log(response.data); // Handle successful registration
+      const response = await axios.post("/api/login", formData);
+      console.log(response.data); // Handle successful login
     } catch (error) {
-      console.error("Error:", error.response.data.message); // Handle registration error
+      console.error("Error:", error.response.data.message); // Handle login error
     }
   };
 
@@ -54,30 +53,10 @@ const RegistrationForm = () => {
     <Container component="main" maxWidth="xs" className={classes.formContainer}>
       <div>
         <Typography variant="h4" align="center">
-          Register
+          Login
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="First Name"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Last Name"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 fullWidth
@@ -108,15 +87,15 @@ const RegistrationForm = () => {
             fullWidth
             className={classes.submitButton}
           >
-            Register
-          </Button>
+            Login
+          </Button>{" "}
           <Grid container justify="flex-end" style={{ marginTop: "10px" }}>
             <Grid item>
               {" "}
-              Have an account?
-              <Button component={Link} to="/login">
+              Don't have an account?
+              <Button component={Link} to="/register">
                 {" "}
-                Sign In
+                Sign Up
               </Button>
             </Grid>
           </Grid>
@@ -126,4 +105,4 @@ const RegistrationForm = () => {
   );
 };
 
-export default RegistrationForm;
+export default LoginForm;
