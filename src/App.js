@@ -1,43 +1,25 @@
-import React, { createContext, useState, useEffect } from "react";
-
-import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import Routes from "./routes";
-import { blue, indigo } from "@material-ui/core/colors";
+// src/App.js
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Import Routes
+import LoginForm from "./loginForm";
 import RegistrationForm from "./Registration";
-
-export const appContext = createContext();
-
-const theme = createMuiTheme({
-  palette: {
-    secondary: {
-      main: blue[900],
-    },
-    primary: {
-      main: indigo[700],
-    },
-  },
-  typography: {
-    fontFamily: ['"Roboto"', "sans-serif"].join(","),
-  },
-});
+import Header from "./header";
+import Home from "./home";
+import Footer from "./footer";
 
 const App = () => {
-  const [requestsResponses, setRequestsResponses] = useState([]);
-
   return (
-    <div style={{ background: "#f6f7fb" }}>
-      <ThemeProvider theme={theme}>
-        <RegistrationForm></RegistrationForm>
-        <appContext.Provider
-          value={{
-            requestsResponses,
-            setRequestsResponses,
-          }}
-        >
-          {/* <Routes /> */}
-        </appContext.Provider>
-      </ThemeProvider>
-    </div>
+    <Router>
+      <div>
+        <Header></Header>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/register" element={<RegistrationForm />} />
+        </Routes>
+        <Footer></Footer>
+      </div>
+    </Router>
   );
 };
 
